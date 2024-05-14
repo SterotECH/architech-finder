@@ -1,6 +1,4 @@
-<?php
-include base_path('resources/views/partials/_base.php');
-?>
+@resource('layouts/master')
 <section class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden md:flex w-4/6  md:items-center">
         <div class="md:w-1/2 px-6 py-8 md:border-r">
@@ -46,8 +44,8 @@ include base_path('resources/views/partials/_base.php');
 
         </div>
         <div class="md:w-1/2 hidden md:block">
-            <img src="<?= url('/image/login-bg.jpg') ?>" alt="Login Image" class="w-full h-[550px] object-cover">
+            <img src="<?= asset('/image/login.jpg') ?>" alt="Login" class="w-full h-[550px] object-cover">
         </div>
     </div>
 </section>
-<?php include base_path('resources/views/partials/footer.php') ?>
+@resource('layouts/footer')

@@ -6,7 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GustMiddleware;
 
-Router::get('/', [HomeController::class , 'index'])->middleware([AuthMiddleware::class]);
+Router::get('/', [HomeController::class , 'index']);
+Router::get('/about-us', [HomeController::class, 'aboutUs']);
 Router::get('/auth/login', [HomeController::class, 'render_login'])->middleware([GustMiddleware::class]);
 Router::post('/auth/login', [HomeController::class, 'login']);
 Router::get('/auth/register', [HomeController::class, 'render_register'])->middleware([GustMiddleware::class]);

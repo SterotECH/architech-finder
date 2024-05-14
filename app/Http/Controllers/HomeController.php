@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Core\Authenticator;
 use App\Core\Request;
+use App\Core\Response;
 use App\Core\Session;
 use App\Http\Forms\LoginForm;
 use App\Http\Forms\RegistrationForms;
@@ -15,16 +16,13 @@ class HomeController extends Controller
 {
     public function index(): void
     {
-        $this->render('index', [
-            'users' => User::all(),
-            'notes' => Note::all(),
-            'heading' => 'Dashboard'
+        Response::view('index', [
         ]);
     }
 
     public function render_login(): void
     {
-        $this->render('auth/login', [
+        Response::view('auth/login', [
             'heading' => 'Sign in to your account',
             'errors' => Session::get('errors')
         ]);
@@ -32,7 +30,7 @@ class HomeController extends Controller
 
     public function render_register(): void
     {
-        $this->render('auth/register', [
+        Response::view('auth/register', [
             'heading' => 'Create new Account',
             'errors' => Session::get('errors')
         ]);
@@ -40,7 +38,7 @@ class HomeController extends Controller
 
     public function render_forgot_password(): void
     {
-        $this->render('auth/forgot_password', [
+        Response::view('auth/forgot_password', [
             'heading' => 'Forgot Password'
         ]);
     }
@@ -92,5 +90,12 @@ class HomeController extends Controller
     {
         Authenticator::logout();
         redirect('/auth/login');
+    }
+
+    public function aboutUs(Request $request)
+    {
+        Response::view('about-us', [
+
+        ]);
     }
 }
