@@ -20,6 +20,8 @@ trait Model
      */
     public function save(): object|array|null
     {
+
+
         $data = get_object_vars($this);
 
         $id = $data['id'] ?? null;

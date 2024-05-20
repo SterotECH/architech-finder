@@ -26,7 +26,7 @@ class Authenticator
                 'is_active',
                 'email',
                 'phone_number',
-                'profile_picture',
+                'avatar',
                 'is_superuser'
             ]);
         if ($user && password_verify($password, $user->{$config['database']['password']}) && $user->is_active) {
@@ -50,7 +50,7 @@ class Authenticator
             'last_name' => $user->last_name,
             'phone_number' => $user->phone_number,
             'email' => $user->email,
-            'profile_picture' => $user->profile_picture,
+            'avatar' => $user->avatar,
             'role' =>$user->role,
             'is_superuser' => $user->is_superuser,
         ];
@@ -95,19 +95,32 @@ class Authenticator
     {
         $config = require base_path('config/auth.php');
         $user = new User();
-        $user->username = $data['username'];
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
-        $user->other_name = $data['other_name'] ?? null;
         $user->phone_number = $data['phone_number'];
         $user->email = $data['email'];
-        $user->address = $data['address'];
-        $user->gender = $data['gender'];
-        $user->date_of_birth = $data['date_of_birth'];
-        $user->profile_picture = $data['profile_picture'];
-        $user->role = $data['role'] ?? User::CUSTOMER;
+        $user->location = $data['location'];
+        $user->gender = $data['gender'] ?? 'Male';
+//        $user->avatar = $data['avatar'];
+        $user->is_superuser = 0;
+        $user->is_active = 1;
+        $user->role = $data['role'] ?? User::CLIENT_ROLE;
         $user->password = password_hash($data['password'], $config['hash']['algorithm'], $config['hash']['options']);
 
         return $user->save();
+    }
+
+    public static function passwordReset(string $password, string|int $user_id): object
+    {
+        $config = require base_path('config/auth.php');
+
+        $user = new User();
+
+        $user->id = $user_id;
+
+        $user->password = password_hash($password, $config['hash']['algorithm'], $config['hash']['options']);
+
+        return $user->save();
+
     }
 }

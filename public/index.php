@@ -32,7 +32,7 @@ try {
 } catch (PDOException $exception){
     abort(Response::HTTP_INTERNAL_SERVER_ERROR, description: $exception, view: 'status/sql');
 } catch (Exception $e) {
-    dd($e->getMessage());
+    abort(Response::HTTP_BAD_GATEWAY, $e->getMessage());
 }
 
 Session::unflash();

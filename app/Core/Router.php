@@ -57,6 +57,7 @@ class Router
      * @param string $path
      * @param callable|array $callback
      * @return Router
+     * @throws Exception
      */
     public static function get(string $path, callable|array $callback): Router
     {

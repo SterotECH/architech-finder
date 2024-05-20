@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/app/Database/seeders/NotesSeeder.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/app/Database/migrations/Migration20240310122800Users.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/app/Database/migrations/Migration20240514201216Client.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/app/Database/migrations/Migration20240515011306Architect.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/app/Database/migrations/Migration20240518100003Password_resets.php" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/app/Database/seeders/UsersSeeder.php" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php" dialect="MariaDB" />

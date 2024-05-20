@@ -3,10 +3,8 @@
 namespace App\Models;
 
 
-use App\Core\Database;
-use AllowDynamicProperties;
 
-#[AllowDynamicProperties] class Model
+class Model
 {
     use \App\Traits\Model;
 

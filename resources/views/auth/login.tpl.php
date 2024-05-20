@@ -48,4 +48,4 @@
         </div>
     </div>
 </section>
-@resource('layouts/footer')
+

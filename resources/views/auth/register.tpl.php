@@ -1,15 +1,8 @@
 @resource('layouts/master')
-<!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
-
 <section class="bg-white">
     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-        <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-            <img alt="" src="<?= asset('/image/login.jpg') ?>n" class="absolute inset-0 h-full w-full object-cover opacity-80" />
+        <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-3 lg:h-full xl:col-span-4">
+            <img alt="" src="<?= asset('/image/login.jpg') ?>" class="absolute inset-0 h-full w-full object-cover opacity-80" />
 
             <div class="hidden lg:relative lg:block lg:p-12">
                 <a class="block text-white" href="#">
@@ -19,18 +12,17 @@
                     </svg>
                 </a>
 
-                <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-                    Welcome to Squid 🦑
+                <h2 class="mt-6 text-xl font-bold text-sky-900 sm:text-2xl md:text-3xl">
+                    BenSkilli Trim &amp; Design
                 </h2>
 
-                <p class="mt-4 leading-relaxed text-white/90">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                    quibusdam aperiam voluptatum.
+                <p class="mt-4 leading-relaxed text-sky-900/90">
+                    Imagination is reality
                 </p>
             </div>
         </section>
 
-        <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+        <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-9 lg:px-16 lg:py-12 xl:col-span-8">
             <div class="max-w-xl lg:max-w-3xl">
                 <div class="relative -mt-16 block lg:hidden">
                     <a class="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20" href="#">
@@ -41,69 +33,101 @@
                     </a>
 
                     <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        Welcome to Squid 🦑
+                        BenSkilli Trim &amp; Design
                     </h1>
 
                     <p class="mt-4 leading-relaxed text-gray-500">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                        quibusdam aperiam voluptatum.
+                        Imagination is reality
                     </p>
                 </div>
 
-                <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+                <form action="/client" class="mt-8 grid grid-cols-6 gap-6" method="POST">
+                    <?= csrf_field() ?>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="FirstName" class="block text-sm font-medium text-gray-700">
+                        <label for="FirstName" class="label">
                             First Name
                         </label>
 
-                        <input type="text" id="FirstName" name="first_name" class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                        <input type="text" id="FirstName" name="first_name" class="input" value="{{ old('first_name') }}" />
+                        <?php if (isset($errors['first_name'])) : ?>
+                            <?php displayError($errors['first_name']) ?>
+                        <?php endif ?>
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="LastName" class="block text-sm font-medium text-gray-700">
+                        <label for="LastName" class="label">
                             Last Name
                         </label>
 
-                        <input type="text" id="LastName" name="last_name" class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                        <input type="text" id="LastName" name="last_name" class="input" value="{{ old('last_name') }}" />
                     </div>
+                    <?php if (isset($errors['last_name'])) : ?>
+                        <?php displayError($errors['last_name']) ?>
+                    <?php endif ?>
 
-                    <div class="col-span-6">
-                        <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="Email" class="label"> Email </label>
 
-                        <input type="email" id="Email" name="email" class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                        <input type="email" id="Email" name="email" class="input" value="{{ old('email') }}" />
+                        <?php if (isset($errors['email'])) : ?>
+                            <?php displayError($errors['email']) ?>
+                        <?php endif ?>
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
-
-                        <input type="password" id="Password" name="password" class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                        <label for="PhoneNumber" class="">
+                            Phone Number
+                        </label>
+                        <input type="tel" id="PhoneNumber" name="phone_number" class="input" value="{{ old('phone_number') }}" />
+                        <?php if (isset($errors['phone_number'])) : ?>
+                            <?php displayError($errors['phone_number']) ?>
+                        <?php endif ?>
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
+                        <label for="Location" class="label">
+                            Location
+                        </label>
+                        <textarea class="textarea" name="location">{{ old('location') }}</textarea>
+                        <?php if (isset($errors['location'])) : ?>
+                            <?php displayError($errors['location']) ?>
+                        <?php endif ?>
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="address" class="label">
+                            Address
+                        </label>
+                        <textarea class="textarea" name="address" id="address">{{ old('address') }}</textarea>
+                        <?php if (isset($errors['address'])) : ?>
+                            <?php displayError($errors['address']) ?>
+                        <?php endif ?>
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="Password" class="label"> Password </label>
+
+                        <input type="password" id="Password" name="password" class="input" />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="PasswordConfirmation" class="label">
                             Password Confirmation
                         </label>
 
-                        <input type="password" id="PasswordConfirmation" name="password_confirmation" class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                        <input type="password" id="PasswordConfirmation" name="password_confirmation" class="input" />
                     </div>
 
-                    <div class="col-span-6">
-                        <label for="MarketingAccept" class="flex gap-4">
-                            <input type="checkbox" id="MarketingAccept" name="marketing_accept" class="size-5 rounded-md border-gray-200 bg-white shadow-sm" />
-
-                            <span class="text-sm text-gray-700">
-                                I want to receive emails about events, product updates and company announcements.
-                            </span>
-                        </label>
-                    </div>
 
                     <div class="col-span-6">
-                        <p class="text-sm text-gray-500">
+                        <input type="checkbox" id="terms" name="terms" class="size-4 rounded border-gray-300" value="{{ old('terms') }}" />
+                        <label for="terms" class="text-sm text-gray-500">
                             By creating an account, you agree to our
                             <a href="#" class="text-gray-700 underline"> terms and conditions </a>
                             and
                             <a href="#" class="text-gray-700 underline">privacy policy</a>.
-                        </p>
+                        </label>
+
                     </div>
 
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
