@@ -4,6 +4,7 @@ npm-debug.log
 yarn-error.log
 /storage/
 /.idea/
+
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/

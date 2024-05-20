@@ -127,6 +127,7 @@
                             and
                             <a href="#" class="text-gray-700 underline">privacy policy</a>.
                         </label>
+
                     </div>
 
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">

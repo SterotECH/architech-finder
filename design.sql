@@ -32,7 +32,7 @@ CREATE TABLE projects (
     id INT PRIMARY KEY AUTO_INCREMENT,
     client_id INT,
     title VARCHAR(255) NOT NULL,
-    type ENUM('residential', 'commercial', etc.) NOT NULL,
+    type ENUM('residential', 'commercial', 'industrial', 'institutional', 'landscape', 'interior', 'urban', 'rural', 'others') NOT NULL,
     size VARCHAR(255),
     budget DECIMAL(10, 2),
     timeline VARCHAR(255),
