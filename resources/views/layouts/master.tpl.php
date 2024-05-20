@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)  ?>">
+<html lang="<?= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)  ?>" data-theme="winter">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

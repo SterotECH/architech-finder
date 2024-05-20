@@ -2,32 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ArchitectController;
+use App\Core\Session;
+use App\Models\Architect;
 use App\Core\Request;
 use App\Core\Response;
 use App\Core\Router;
 
-class ArchitectControllerController extends Controller
+class ArchitectController extends Controller
 {
     public function index(): void
     {
-        Response::view('architectcontroller/index', [
-            'architectcontroller\s'=> ArchitectController::all()
+        $architects = array(
+            array(
+                'first_name' => 'David',
+                'last_name' => 'Jones',
+                'portfolio_link' => 'https://davidjones.com/portfolio',
+                'avatar' => 'images/david_jones.jpg', // Replace with the actual image path
+                'speciality' => 'Residential Architecture',
+                'years_of_experience' => 15,
+            ),
+            array(
+                'first_name' => 'Alice',
+                'last_name' => 'Wang',
+                'portfolio_link' => 'https://alicewang.com/architecture',
+                'avatar' => 'images/alice_wang.jpg', // Replace with the actual image path
+                'speciality' => 'Sustainable Design',
+                'years_of_experience' => 10,
+            ),
+            array(
+                'first_name' => 'Kwame',
+                'last_name' => 'Adu',
+                'portfolio_link' => 'https://kwameadu.com',
+                'avatar' => 'images/kwame_adu.jpg', // Replace with the actual image path
+                'speciality' => 'Commercial Architecture',
+                'years_of_experience' => 8,
+            ),
+            array(
+                'first_name' => 'Isabella',
+                'last_name' => 'Garcia',
+                'portfolio_link' => 'https://isabellagarcia.net',
+                'avatar' => 'images/isabella_garcia.jpg', // Replace with the actual image path
+                'speciality' => 'Historic Preservation',
+                'years_of_experience' => 12,
+            ),
+        );
+
+        Response::view('architect/index', [
+//            'architects'=> Architect::all(),
+            'architects' => $architects,
         ]);
     }
 
     public function create(): void
     {
-        Response::view('architectcontroller/create',[
+        Response::view('architect/create',[
             'errors' => Session::get('errors')
         ]);
     }
 
     public function store(Request $request): void
     {
-        $architectcontroller = new ArchitectController();
+        $architect = new Architect();
 
-        $architectcontroller\->save();
+        $architect->save();
 
         Response::redirect(Router::previousUrl());
 
@@ -37,38 +74,38 @@ class ArchitectControllerController extends Controller
     {
         $id = $request->params()->id;
 
-        $architectcontroller = ArchitectController::findById($id);
-        Response::view('architectcontroller/show', [
-            'architectcontroller' => $architectcontroller
+        $architect = Architect::findById($id);
+        Response::view('architect/show', [
+            'architect' => $architect
         ]);
     }
 
     public function edit(Request $request): void
     {
         $id = $request->params()->id;
-        $architectcontroller = ArchitectController::findById($id);
+        $architect = Architect::findById($id);
 
-        Response::view('architectcontroller/edit', [
-            'architectcontroller' => $architectcontroller,
+        Response::view('architect/edit', [
+            'architect' => $architect,
         ]);
     }
 
     public function update(Request $request): void
     {
         $request->validate([]);
-        $architectcontroller = new ArchitectController();
+        $architect = new Architect();
 
         $id = $request->params()->id;
-        $architectcontroller\->id = $id;
+        $architect->id = $id;
 
-        $architectcontroller\->save();
+        $architect->save();
 
         Response::redirect(Router::previousUrl());
     }
 
     public function destroy(Request $request): void
     {
-        ArchitectController::delete($request->params()->id);
+        Architect::delete($request->params()->id);
 
         Response::redirect(Router::previousUrl());
     }

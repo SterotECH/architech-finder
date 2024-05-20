@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Request\UserStoreRequet;
 use App\Models\User;
 use App\Core\Request;
 use App\Core\Session;
@@ -26,24 +27,16 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request): void
+    public static function store(Request $request): object
     {
-        $request->validate([
-            'username' => 'required|string|min:2|max:16|unique:users,username',
-            'first_name' => 'required|string|min:2|max:100',
-            'last_name' => 'required|string|min:2|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|max:16',
-            'phone_number' => 'required|string|min:10|max:20|unique:users,phone_number|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'other_name' => 'string|min:2|max:255',
-        ]);
+        $storeRequest = new UserStoreRequet();
+
+        $request->validate($storeRequest->rules());
 
         $user = Authenticator::register((array)$request->all());
         Session::flash('success',"{$user->username} account has being created successfully");
 
-        if ($user) {
-            Response::redirect('/users');
-        }
+        return $user;
     }
 
 

@@ -21,7 +21,7 @@ trait HandlesValidation
      */
     public function validate(array $rules)
     {
-        $this->$rules = $rules;
+        // dd((array)$this->all());
         $this->old = (array)$this->all();
 
         $validator = new Validator();
