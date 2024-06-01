@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\Router;
+
 /**
  * @var string $message
  * @var int $statusCode
@@ -17,114 +18,136 @@ use App\Core\Router;
     <title><?= $statusCode ?> | <?= $message ?></title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito', sans-serif;
+            color: #444;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
         }
 
         .error-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 24px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
+        }
+
+        .error-message h2 {
+            margin: 0;
+        }
+
+        .error-message .divider {
+            margin: 0 10px;
+            font-weight: normal;
+            color: #999;
+        }
+
+        .description {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
         }
 
         pre {
-            background-color: #f5f5f5;
+            text-align: left;
+            background-color: #f1f5f8;
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 15px;
+            border-radius: 8px;
             overflow-x: auto;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.5;
-            width: 80%;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .route {
-            justify-content: start;
+            display: flex;
             align-items: center;
-            padding: 5px 0;
+            margin-bottom: 5px;
         }
 
         .method {
-            width: 100px;
+            width: 70px;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 10px;
         }
 
         .method-delete {
-            color: #dc3545;
+            color: #e3342f;
         }
 
         .method-get {
-            color: #007bff;
+            color: #38c172;
         }
 
         .method-post {
-            color: #28a745;
+            color: #3490dc;
         }
 
         .method-put {
-            color: #ffc107;
+            color: #ffed4a;
         }
 
         .path {
             flex: 1;
             text-align: left;
+            color: #666;
         }
 
         .controller-method {
             font-size: 14px;
+            color: #888;
+            margin-left: 10px;
+            text-align: left;
         }
     </style>
 </head>
 
 <body>
-<div class="container">
-    <div class="error-message">
-        <h2><?= $statusCode ?></h2>
-         &nbsp;|&nbsp;
-        <h2><?= $message ?></h2>
-    </div>
-    <div class="bg-gray-100 rounded-lg shadow-md">
-        <p class="text-sm text-gray-600"><?= $description ?></p>
-    </div>
-    <?php if (env('APP_ENV') === 'development' && $statusCode === 404): ?>
-        <pre>
-<?php
-foreach (Router::$handlers as $handler) {
-    $method = $handler['method'];
-    $path = $handler['path'];
-    $controller = '';
-    $controllerMethod = '';
-    if (is_array($handler['callback'])) {
-        $controller = $handler['callback'][0];
-        $controllerMethod = $handler['callback'][1];
-    }
-    echo '<div style="display: flex; align-items: center; ">';
-    $dottedLineLength = max(70 - strlen($method) - strlen($path), 10);
-    printf("<div class='route'>");
-    printf("<span class='method method-%s'>%s</span>", strtolower($method), $method);
-    printf("<span class='path method-%s'>%s %s</span>", strtolower($method), str_repeat("-", $dottedLineLength), $path);
-    printf("</div>");
-
-    if ($controller && $controllerMethod) {
-        printf("<div class='controller-method method-%s''>&nbsp;{%s@%s}</div>",strtolower($method), $controller, $controllerMethod);
-    }
-    echo '</div>';
-}
-?>
+    <div class="container">
+        <div class="error-message">
+            <h2><?= $statusCode ?></h2>
+            <span class="divider">|</span>
+            <h2><?= $message ?></h2>
+        </div>
+        <p class="description"><?= htmlspecialchars($description, ENT_QUOTES, 'UTF-8') ?></p>
+        <?php if (env('APP_ENV') === 'development' && $statusCode === 404) : ?>
+            <pre>
+                <?php foreach (Router::$handlers as $handler) {
+                    $method = $handler['method'];
+                    $path = $handler['path'];
+                    $controller = '';
+                    $controllerMethod = '';
+                    if (is_array($handler['callback'])) {
+                        $controller = $handler['callback'][0];
+                        $controllerMethod = $handler['callback'][1];
+                    }
+                    echo '<div class="route">';
+                    printf("<span class='method method-%s'>%s</span>", strtolower($method), $method);
+                    printf("<span class='path'>%s</span>", $path);
+                    if ($controller && $controllerMethod) {
+                        printf("<span class='controller-method'>%s@%s</span>", $controller, $controllerMethod);
+                    }
+                    echo '</div>';
+                }
+                ?>
             </pre>
-    <?php endif; ?>
-</div>
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>

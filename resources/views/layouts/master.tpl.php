@@ -15,8 +15,10 @@
         $url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         echo $url;
     ?>">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="<?= asset('/css/main.css') ?>" rel="stylesheet" />
     <?php require_once base_path('resources/views/layouts/scripts.php') ?>
+    <style>
+        [x-cloak] { display: none; }
+    </style>
 </head>
 <body class="text-gray-900 font-sans antialiased">

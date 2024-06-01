@@ -1,150 +1,180 @@
 @resource('layouts/master')
 <section class="bg-white">
-    <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-        <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-3 lg:h-full xl:col-span-4">
-            <img alt="" src="<?= asset('/image/login.jpg') ?>" class="absolute inset-0 h-full w-full object-cover opacity-80" />
+  <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+    <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-3 lg:h-full xl:col-span-4">
+      <img alt="" src="<?= asset('/image/login.jpg') ?>" class="absolute inset-0 h-full w-full object-cover opacity-80" />
 
-            <div class="hidden lg:relative lg:block lg:p-12">
-                <a class="block text-white" href="#">
-                    <span class="sr-only">Home</span>
-                    <svg class="h-8 sm:h-10" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z" fill="currentColor" />
+      <div class="hidden lg:relative lg:block lg:p-12">
+        <a class="block text-white" href="#">
+          <span class="sr-only">Home</span>
+          <svg class="h-8 sm:h-10" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z" fill="currentColor" />
+          </svg>
+        </a>
+
+        <h2 class="mt-6 text-xl font-bold text-primary-900 sm:text-2xl md:text-3xl">
+          BenSkilli Trim &amp; Design
+        </h2>
+
+        <p class="mt-4 leading-relaxed text-primary-900/90">
+          Imagination is reality
+        </p>
+      </div>
+    </section>
+
+    <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-9 lg:px-16 lg:py-12 xl:col-span-8">
+      <div class="max-w-xl lg:max-w-3xl">
+        <div class="relative -mt-16 block lg:hidden">
+          <a class="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20" href="#">
+            <span class="sr-only">Home</span>
+            <svg class="h-8 sm:h-10" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z" fill="currentColor" />
+            </svg>
+          </a>
+
+          <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+            BenSkilli Trim &amp; Design
+          </h1>
+
+          <p class="mt-4 leading-relaxed text-gray-500">
+            Imagination is reality
+          </p>
+        </div>
+
+        <form action="/client" class="mt-8 grid grid-cols-6 gap-4" method="POST" enctype="multipart/form-data" x-data="imagePreview()">
+          <?= csrf_field() ?>
+          <input type="hidden" name="role" value="<?= App\Enums\UserRole::CLIENT->value ?>" />
+          <div class="w-full">
+            <?php if (isset($errors['role'])) : ?>
+              <?= showError(key: 'role', errors: $errors) ?>
+            <?php endif ?>
+          </div>
+          <div class="col-span-6" x-data="imagePreview()">
+            <div class="flex flex-col items-center space-y-4">
+              <div class="relative">
+                <img :src="imageUrl ? imageUrl : 'https://via.placeholder.com/150'" alt="Avatar Preview" class="size-32 rounded-full object-cover" />
+                <input type="file" id="ProfilePicture" name="avatar" class="hidden" accept="image/*" @change="previewImage" value="<?= old('avatar') ?>" required />
+                <button type="button" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 btn btn-ghost btn-sm" :class="{'btn-primary': imagePreview:,  'btn-error': !imagePreview}" @click="document.getElementById('ProfilePicture').click()">
+                  <template x-if="!imageUrl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up size-4">
+                      <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+                      <path d="m14 19.5 3-3 3 3" />
+                      <path d="M17 22v-5.5" />
+                      <circle cx="9" cy="9" r="2" />
                     </svg>
-                </a>
-
-                <h2 class="mt-6 text-xl font-bold text-sky-900 sm:text-2xl md:text-3xl">
-                    BenSkilli Trim &amp; Design
-                </h2>
-
-                <p class="mt-4 leading-relaxed text-sky-900/90">
-                    Imagination is reality
-                </p>
+                  </template>
+                  <template x-if="imageUrl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash size-4">
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </template>
+                </button>
+              </div>
+              <?php if (isset($errors['profile_picture'])) : ?>
+                <?= showError(key: 'profile_picture', errors: $errors) ?>
+              <?php endif ?>
             </div>
-        </section>
+          </div>
 
-        <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-9 lg:px-16 lg:py-12 xl:col-span-8">
-            <div class="max-w-xl lg:max-w-3xl">
-                <div class="relative -mt-16 block lg:hidden">
-                    <a class="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20" href="#">
-                        <span class="sr-only">Home</span>
-                        <svg class="h-8 sm:h-10" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z" fill="currentColor" />
-                        </svg>
-                    </a>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="FirstName" class="label">First Name</label>
+            <input type="text" id="FirstName" name="first_name" class="input input-primary" value="{{ old('first_name') }}" />
+            <?php if (isset($errors['first_name'])) : ?>
+              <?= showError(key: 'first_name', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                    <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        BenSkilli Trim &amp; Design
-                    </h1>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="LastName" class="label">Last Name</label>
+            <input type="text" id="LastName" name="last_name" class="input input-primary" value="{{ old('last_name') }}" />
+            <?php if (isset($errors['last_name'])) : ?>
+              <?= showError(key: 'last_name', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                    <p class="mt-4 leading-relaxed text-gray-500">
-                        Imagination is reality
-                    </p>
-                </div>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="Email" class="label">Email</label>
+            <input type="email" id="Email" name="email" class="input input-primary" value="{{ old('email') }}" />
+            <?php if (isset($errors['email'])) : ?>
+              <?= showError(key: 'email', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                <form action="/client" class="mt-8 grid grid-cols-6 gap-6" method="POST">
-                    <?= csrf_field() ?>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="FirstName" class="label">
-                            First Name
-                        </label>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="PhoneNumber" class="label">Phone Number</label>
+            <input type="tel" id="PhoneNumber" name="phone_number" class="input input-primary" value="{{ old('phone_number') }}" />
+            <?php if (isset($errors['phone_number'])) : ?>
+              <?= showError(key: 'phone_number', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                        <input type="text" id="FirstName" name="first_name" class="input" value="{{ old('first_name') }}" />
-                        <?php if (isset($errors['first_name'])) : ?>
-                            <?php displayError($errors['first_name']) ?>
-                        <?php endif ?>
-                    </div>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="Location" class="label">Location</label>
+            <textarea class="textarea" name="location">{{ old('location') }}</textarea>
+            <?php if (isset($errors['location'])) : ?>
+              <?= showError(key: 'location', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="LastName" class="label">
-                            Last Name
-                        </label>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="address" class="label">Address</label>
+            <textarea class="textarea" name="address" id="address">{{ old('address') }}</textarea>
+            <?php if (isset($errors['address'])) : ?>
+              <?= showError(key: 'address', errors: $errors) ?>
+            <?php endif ?>
+          </div>
 
-                        <input type="text" id="LastName" name="last_name" class="input" value="{{ old('last_name') }}" />
-                    </div>
-                    <?php if (isset($errors['last_name'])) : ?>
-                        <?php displayError($errors['last_name']) ?>
-                    <?php endif ?>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="Password" class="label">Password</label>
+            <input type="password" id="Password" name="password" class="input input-primary" />
+          </div>
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="Email" class="label"> Email </label>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="PasswordConfirmation" class="label">Password Confirmation</label>
+            <input type="password" id="PasswordConfirmation" name="password_confirmation" class="input input-primary" />
+          </div>
 
-                        <input type="email" id="Email" name="email" class="input" value="{{ old('email') }}" />
-                        <?php if (isset($errors['email'])) : ?>
-                            <?php displayError($errors['email']) ?>
-                        <?php endif ?>
-                    </div>
+          <div class="col-span-6">
+            <input type="checkbox" id="terms" name="terms" class="size-4 rounded border-gray-300" value="{{ old('terms') }}" />
+            <label for="terms" class="text-sm text-gray-500">
+              By creating an account, you agree to our
+              <a href="#" class="text-gray-700 underline">terms and conditions</a>
+              and
+              <a href="#" class="text-gray-700 underline">privacy policy</a>.
+            </label>
+          </div>
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="PhoneNumber" class="">
-                            Phone Number
-                        </label>
-                        <input type="tel" id="PhoneNumber" name="phone_number" class="input" value="{{ old('phone_number') }}" />
-                        <?php if (isset($errors['phone_number'])) : ?>
-                            <?php displayError($errors['phone_number']) ?>
-                        <?php endif ?>
-                    </div>
-
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="Location" class="label">
-                            Location
-                        </label>
-                        <textarea class="textarea" name="location">{{ old('location') }}</textarea>
-                        <?php if (isset($errors['location'])) : ?>
-                            <?php displayError($errors['location']) ?>
-                        <?php endif ?>
-                    </div>
-
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="address" class="label">
-                            Address
-                        </label>
-                        <textarea class="textarea" name="address" id="address">{{ old('address') }}</textarea>
-                        <?php if (isset($errors['address'])) : ?>
-                            <?php displayError($errors['address']) ?>
-                        <?php endif ?>
-                    </div>
-
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="Password" class="label"> Password </label>
-
-                        <input type="password" id="Password" name="password" class="input" />
-                    </div>
-
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="PasswordConfirmation" class="label">
-                            Password Confirmation
-                        </label>
-
-                        <input type="password" id="PasswordConfirmation" name="password_confirmation" class="input" />
-                    </div>
-
-
-                    <div class="col-span-6">
-                        <input type="checkbox" id="terms" name="terms" class="size-4 rounded border-gray-300" value="{{ old('terms') }}" />
-                        <label for="terms" class="text-sm text-gray-500">
-                            By creating an account, you agree to our
-                            <a href="#" class="text-gray-700 underline"> terms and conditions </a>
-                            and
-                            <a href="#" class="text-gray-700 underline">privacy policy</a>.
-                        </label>
-
-                    </div>
-
-                    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                        <button class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                            Create an account
-                        </button>
-
-                        <p class="mt-4 text-sm text-gray-500 sm:mt-0">
-                            Already have an account?
-                            <a href="#" class="text-gray-700 underline">Log in</a>.
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </main>
-    </div>
+          <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+            <button class="btn btn-primary">Create an account</button>
+            <p class="mt-4 text-sm text-gray-500 sm:mt-0">
+              Already have an account?
+              <a href="/auth/login" class="btn btn-sm btn-link">Log in</a>.
+            </p>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
 </section>
+<script>
+  function imagePreview() {
+    return {
+      imageUrl: null,
+      previewImage(event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageUrl = e.target.result;
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    }
+  }
+</script>
 </body>
 
 </html>

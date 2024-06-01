@@ -30,7 +30,7 @@ class CreateViewCommand extends Command
         if (!$viewName) {
             $viewName = $io->ask('Enter the name of the view to create');
         }
-
+        $viewName = $viewName . 'View';
         $viewPath = base_path('/app/Database/Views');
 
         if (!file_exists($viewPath)) {
@@ -47,9 +47,7 @@ class CreateViewCommand extends Command
         $content = <<<PHP
 <?php
 
-namespace App\Database\Views;
-
-class {$viewName}View
+class $viewName
 {
     public function up(): string
     {

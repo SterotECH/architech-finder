@@ -13,16 +13,13 @@ class Migration20240310122800Users
       last_name VARCHAR(100) NOT NULL,
       phone_number VARCHAR(20),
       gender ENUM('Male', 'Female', 'Other') NOT NULL,
+      remember_token VARCHAR NULL,
       avatar VARCHAR(255) NULL,
       location VARCHAR(255) NULL,
       is_active BOOLEAN NOT NULL DEFAULT TRUE,
       is_superuser BOOLEAN NOT NULL DEFAULT FALSE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      CHECK (role IN ('Client', 'Architect', 'Administrator')),
-      CHECK (gender IN ('male', 'female', 'other')),
-      CHECK (is_active IN (0, 1)),
-      CHECK (is_superuser IN (0, 1)),
       CONSTRAINT users_phone_number_unique UNIQUE INDEX (phone_number),
       CONSTRAINT users_email_unique UNIQUE INDEX (email)
     )";

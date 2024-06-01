@@ -1,8 +1,10 @@
 <?php
 
+use App\Core\Authenticator;
 use App\Core\Exceptions\ConfigNotFoundException;
 use App\Core\Response;
 use App\Core\Session;
+use Dotenv\Util\Str;
 use JetBrains\PhpStorm\NoReturn;
 use Random\RandomException;
 
@@ -130,7 +132,7 @@ function uriContains(string $value): bool
  * @param string|null $description
  * @return void
  */
-function abort(int $statusCode = Response::HTTP_NOT_FOUND, string|null|PDOException $description = null, string $view = 'status/code' ): void
+function abort(int $statusCode = Response::HTTP_NOT_FOUND, string|null|PDOException $description = null, string $view = 'status/code'): void
 {
     http_response_code($statusCode);
 
@@ -177,6 +179,16 @@ function old(string $key, mixed $default = '')
     return Session::get('old')[$key] ?? $default;
 }
 
+function showError(string $key, array $errors = []): string
+{
+    if (is_array($errors[$key])) {
+        foreach ($errors[$key] as $error) {
+            return "<p class='mt-2 text-sm text-red-600 bg-red-100 w-full rounded-md px-4 py-2'>$error</p>";
+        }
+    } else {
+        return "<p class='mt-2 text-sm text-red-600 bg-red-100 w-full rounded-md px-4 py-2'>$errors[$key]</p>";
+    }
+}
 
 function displayError(array|string $errors): void
 {
@@ -217,11 +229,13 @@ function formatColumnName(string $columnName): string
 }
 
 
-function resource($template){
+function resource($template)
+{
     include base_path("resources/views/$template.tpl.php");
 }
 
-function url(string $path, array $params = []){
+function url(string $path, array $params = [])
+{
     $url = rtrim($_SERVER['REQUEST_URI'], '/') . '/' . ltrim($path, '/');
     if (!empty($params)) {
         $url .= '?' . http_build_query($params);
@@ -271,5 +285,27 @@ function component(string $component, array $data = [])
 {
     extract($data);
 
-    require base_path("resources/views/components/$component.cmp.php");
+    include base_path("resources/views/components/$component.cmp.php");
+}
+
+
+function auth()
+{
+    return new Authenticator();
+}
+
+function slugify(string $text, string $divider = '-'): string
+{
+    $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    $text = trim($text, $divider);
+    $text = preg_replace('~-+~', $divider, $text);
+    $text = strtolower($text);
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
 }

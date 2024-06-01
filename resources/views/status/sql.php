@@ -1,87 +1,68 @@
-<?php
-/**
- * @var PDOException|Exception $description
- */
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error Modal</title>
+    <title>Error</title>
     <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8fafc;
+            color: #636b6f;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        main {
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 1000px;
             width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
         }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+        h1 {
+            color: #e3342f;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: left;
         }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+        p {
+            margin: 10px 0;
+            font-size: 16px;
         }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        pre {
+            text-align: left;
+            background-color: #f1f5f8;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .error-file {
+            font-size: 14px;
+            color: #b0bec5;
+        }
+        .container {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-
-<div id="errorModal" class="modal">
-    <div class="modal-content">
-        <span class="close"                     style="padding: 8px 16px; background-color: #dc3545; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;"
-        >&times;</span>
-        <p style="">Error Message: <?= $description->getMessage() ?></p>
-        <?php  if (env('APP_ENV') === 'development'): ?>
-        <p><?= $description->getFile() ?> at line <?= $description->getLine() ?></p>
-        <pre>Error Trace: <?= $description->getTraceAsString(); ?></pre>
+    <main>
+        <div class="container">
+            <h1><?= htmlspecialchars($description->getMessage(), ENT_QUOTES, 'UTF-8') ?></h1>
+        </div>
+        <?php if (env('APP_ENV') === 'development') : ?>
+            <p class="error-file"><?= htmlspecialchars($description->getFile(), ENT_QUOTES, 'UTF-8') ?> at line <?= htmlspecialchars($description->getLine(), ENT_QUOTES, 'UTF-8') ?></p>
+            <pre>Error Trace: <?= htmlspecialchars($description->getTraceAsString(), ENT_QUOTES, 'UTF-8') ?></pre>
         <?php endif; ?>
-    </div>
-</div>
-
-<script>
-    // Get the modal
-    const modal = document.getElementById('errorModal');
-
-    // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName('close')[0];
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = 'none';
-    };
-
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    };
-
-    // Show the modal
-    modal.style.display = 'block';
-</script>
-
+    </main>
 </body>
 </html>

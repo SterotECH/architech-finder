@@ -2,21 +2,13 @@
 
 namespace App\Models;
 
+use App\Core\Database;
 
 
+#[\AllowDynamicProperties]
 class Model
 {
     use \App\Traits\Model;
-
-    protected static Database $database;
-
-    /**
-     * Initialize the database connection.
-     */
-    public static function init(): void
-    {
-        self::$database = Database::getInstance();
-    }
 
     /**
      * @return string

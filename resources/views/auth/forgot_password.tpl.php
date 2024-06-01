@@ -20,7 +20,7 @@
                 <div class="grid grid-cols-1 gap-y-6">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="<?= old('email') ?>" required />
+                        <input type="email" name="email" id="email" class="input" value="<?= old('email') ?>" required />
                     </div>
                     <?php if (isset($errors['email'])) : ?>
                         <?php displayError($errors['email']); ?>

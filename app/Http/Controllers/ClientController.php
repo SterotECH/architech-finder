@@ -27,9 +27,6 @@ class ClientController extends Controller
 
     public function store(Request $request): void
     {
-//        $storeRequest = new ClientStoreRequest();
-
-//        $request->validate($storeRequest->rules());
         $user = UserController::store($request);
 
         $client = new Client();
@@ -39,7 +36,7 @@ class ClientController extends Controller
 
         $client->save();
 
-        Response::redirect(Router::previousUrl());
+        Response::redirect('/auth/login');
 
     }
 

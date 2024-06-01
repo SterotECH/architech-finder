@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use AllowDynamicProperties;
+use App\Enums\UserRole;
 use DateTime;
 
 #[AllowDynamicProperties] class User extends Model
@@ -26,10 +27,15 @@ use DateTime;
     public string $last_name;
     public string $phone_number;
     public string $password;
+    public string|UserRole $role;
     public DateTime $updated_at;
     public DateTime $created_at;
 
     const CLIENT_ROLE = 'Client';
     public const ARCHITECT_ROLE = 'Architect';
 
+    public function getUserData(string|int $user_id): object
+    {
+        return $this->findById($user_id);
+    }
 }

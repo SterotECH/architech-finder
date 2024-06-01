@@ -7,8 +7,6 @@ use App\Traits\HandlesValidation;
 use App\Core\Interface\RequestInterface;
 use App\Core\Interface\FormRequestInterface;
 
-session_start();
-
 class Request implements RequestInterface
 {
     use HandlesValidation;
@@ -18,7 +16,6 @@ class Request implements RequestInterface
     private array $files = [];
 
     public ?FormRequestInterface $request = null;
-
 
     /**
      * @param array $args
@@ -191,7 +188,6 @@ class Request implements RequestInterface
         }
         return $_COOKIE[$key];
     }
-
 
     /**
      * @return array|null
