@@ -8,8 +8,10 @@ use App\Core\Request;
 use App\Core\Session;
 use App\Core\Response;
 use App\Models\Client;
+use App\Enums\UserRole;
 use App\Models\Project;
 use App\Models\Proposal;
+use App\Models\Architect;
 use App\Enums\ProjectType;
 use App\Enums\ProjectStatus;
 use App\Http\Request\ProjectStoreRequest;
@@ -19,8 +21,19 @@ class ProjectController extends Controller
     public function index(): void
     {
         $project = new Project();
+        $projects = [];
+        $userType = auth()->user()->role;
+
+        if ($userType === UserRole::CLIENT->value) {
+            $projects = $project->getClientProjects(auth()->user()->id);
+        } elseif ($userType === UserRole::ARCHITECT->value) {
+            $projects = $project->getUnassignedProjects();
+        } else {
+            $projects = Project::all();
+        }
+
         Response::view('project/index', [
-            'projects' => $project->getAllProjectsWithClients()
+            'projects' => $projects
         ]);
     }
 
@@ -46,8 +59,8 @@ class ProjectController extends Controller
             $project->title = $request->input('name');
             $project->slug = slugify($request->input('name'));
             $project->description = $request->input('description');
-            $project->type = ProjectType::from($request->input('type'));
-            $project->status = ProjectStatus::PENDING;
+            $project->type = ProjectType::from($request->input('type'))->value;
+            $project->status = ProjectStatus::PENDING->value;
             $project->budget = 0;
 
             $project->save();
@@ -61,12 +74,20 @@ class ProjectController extends Controller
     {
         $slug = $request->params()->id;
 
-        $project = Project::findBySlug($slug);
+        $project = Project::getAllProjectsWithClients($slug);
 
-        $proposals = Proposal::proposalWithArchitectsDetails($project->id);
+        $proposals = Proposal::proposalWithArchitectsDetails($project[0]->id);
+
+        $architect = null;
+        if (auth()->user()->role === UserRole::ARCHITECT->value) {
+            $architect = Architect::find('user_id', auth()->user()->id, ['id']);
+        }
+
+        $architect = Architect::find('user_id', auth()->user()->id, ['id']);
 
         Response::view('project/show', [
-            'project' => $project,
+            'architect' => $architect ? $architect->id : null,
+            'project' => $project[0],
             'proposals' => $proposals,
         ]);
     }
@@ -90,8 +111,8 @@ class ProjectController extends Controller
         $project->id = $id;
         $project->slug = slugify($request->input('title'));
         $project->title = $request->input('title');
-        $project->type = ProjectType::from($request->input('type'));
-        $project->status = ProjectStatus::from($request->input('status'));
+        $project->type = ProjectType::from($request->input('type'))->value;
+        $project->status = ProjectStatus::from($request->input('status'))->value;
         $project->description = $request->input('description');
 
         if ($request->input('status') === ProjectStatus::CANCELLED) {

@@ -94,11 +94,11 @@ class Database
      */
     public function query(string $sql, array $params = null): static
     {
-        error_log($sql);
+        Logger::log($sql);
 
         if ($params) {
             foreach ($params as $param) {
-                error_log($param);
+                Logger::log($param);
             }
         }
         $this->statement = $this->connection->prepare($sql);

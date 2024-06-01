@@ -7,7 +7,7 @@ class Migration20240522201059Project
     return "CREATE TABLE IF NOT EXISTS projects (
       id INT AUTO_INCREMENT PRIMARY KEY,
       client_id INT,
-      architect_id INT NULL;
+      architect_id INT NULL,
       title VARCHAR(255) NOT NULL,
       slug VARCHAR(255) NOT NULL,
       description TEXT,
@@ -19,7 +19,8 @@ class Migration20240522201059Project
       deleted_at TIMESTAMP NULL,
       completed_at TIMESTAMP NULL,
       cancelled_at TIMESTAMP NULL,
-      FOREIGN KEY (client_id) REFERENCES clients(id)
+      FOREIGN KEY (client_id) REFERENCES clients(id),
+      FOREIGN KEY (architect_id) REFERENCES architects(id)
     )";
   }
 

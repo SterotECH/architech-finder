@@ -9,44 +9,58 @@ module.exports = {
     ], {dot: true}),
     theme: {
         extend: {
-            colors: {
-                primary: {
-                    50: '#f5f3ff',
-                    100: '#ede9fe',
-                    200: '#ddd6fe',
-                    300: '#c4b5fd',
-                    400: '#a78bfa',
-                    500: '#8b5cf6',
-                    600: '#7c3aed',
-                    700: '#6d28d9',
-                    800: '#5b21b6',
-                    900: '#4c1d95',
+            keyframes: {
+                'fade-slide-up-in': {
+                    from: {
+                        opacity: 0,
+                        transform: 'translateY(15%)'
+                    },
+                    to: {
+                        opacity: 1,
+                        transform: 'translateY(0%)'
+                    }
                 },
-                secondary: {
-                    50: '#f0f5ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',
-                    600: '#2563eb',
-                    700: '#1d4ed8',
-                    800: '#1e40af',
-                    900: '#1e3a8a',
+                'buttonGradient':{
+                    0: {
+                        'background-position': '0% 0%'
+                    },
+                    15: {
+                        'background-position': '33% 0%'
+                    },
+                    90: {
+                        'background-position': '80% 0%'
+                    },
+                    100: {
+                        'background-position': '100% 0%'
+                    }
                 },
-                neutral: {
-                    50: '#f8f9fa',
-                    100: '#e9ecef',
-                    200: '#dee2e6',
-                    300: '#ced4da',
-                    400: '#adb5bd',
-                    500: '#6c757d',
-                    600: '#495057',
-                    700: '#343a40',
-                    800: '#212529',
-                    900: '#121416',
+                'clip-path-circle-open': {
+                    from: {
+                        opacity: 0,
+                        transform: 'translateY(15%)'
+                    },
+                    to: {
+                        opacity: 1,
+                        transform: 'translateY(0%)'
+                    }
+                },
+                'clip-path-circle-close': {
+                    from: {
+                        opacity: 1,
+                        transform: 'translateY(0%)'
+                    },
+                    to: {
+                        opacity: 0,
+                        transform: 'translateY(15%)'
+                    }
                 },
             },
+            animation: {
+                'fade-slide-up-in': 'fade-slide-up-in 0.5s ease-out',
+                'buttonGradient': 'buttonGradient 3s linear infinite',
+                'clip-path-circle-open': 'clip-path-circle-open 0.5s ease-out',
+                'clip-path-circle-close': 'clip-path-circle-close 0.5s ease-out',
+            }
         },
     },
     plugins: [

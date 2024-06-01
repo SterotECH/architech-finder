@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use DateTime;
+use Dotenv\Util\Str;
 
 class Project extends Model
 {
@@ -38,21 +39,15 @@ class Project extends Model
         return self::raw($sql, ['id' => $id]);
     }
 
-    public function save(): object
-    {
-        $this->status = $this->status->value;
-        $this->type = $this->type->value;
-        return parent::save();
-    }
-
     /**
      * Get all projects with corresponding client details.
      *
      * @return array
      */
-    public function getAllProjectsWithClients(): array
+    public static function getAllProjectsWithClients(string | int $id): array
     {
-        $sql = "
+        $sql =
+            "
             SELECT
                 p.*,
                 cv.first_name,
@@ -69,8 +64,39 @@ class Project extends Model
             JOIN
                 clients_view cv
             ON
-                p.client_id = cv.id";
+                p.client_id = cv.id
+            WHERE p.slug = :slug";
 
-        return self::raw($sql);
+        return self::raw($sql, ['slug' => $id]);
+    }
+
+    public function getClientProjects(int $clientId): array
+    {
+        $query = "SELECT * FROM projects WHERE client_id = ?";
+        return self::raw($query, [$clientId]);
+    }
+
+    public function getUnassignedProjects(): array
+    {
+        $architectId = Architect::find('user_id', auth()->user()->id, ['id']);
+        $query = "SELECT
+            p.*,
+            cv.first_name,
+            cv.last_name,
+            cv.avatar,
+            cv.email,
+            cv.location,
+            cv.phone_number,
+            cv.gender,
+            cv.role,
+            cv.address
+        FROM
+            projects p
+        JOIN
+            clients_view cv
+        ON
+            p.client_id = cv.id
+        WHERE architect_id IS NULL OR architect_id = ?";
+        return self::raw($query, [$architectId->id]);
     }
 }

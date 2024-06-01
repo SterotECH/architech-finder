@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Authenticator;
 use App\Core\Mail;
-use App\Core\Request;
-use App\Core\Response;
 use App\Core\Router;
+use App\Models\User;
+use App\Core\Request;
 use App\Core\Session;
 use App\Models\Model;
-use App\Models\User;
-use PHPMailer\PHPMailer\Exception;
-use PhpParser\Node\Expr\AssignOp\Mod;
+use App\Core\Response;
+use App\Models\Architect;
+use App\Core\Authenticator;
 use Random\RandomException;
+use PHPMailer\PHPMailer\Exception;
 
 class HomeController extends Controller
 {
     public function index(): void
     {
+        $architect = Architect::getArchitectWithProfile();
+        shuffle($architect);
+        $architect = array_slice($architect, 0, 4);
+
         Response::view('index', [
+            'architects' => $architect
         ]);
     }
 
@@ -57,18 +62,27 @@ class HomeController extends Controller
                 'password' => "required|string|password|passwordVerify:{$request->input('email')}",
             ]);
 
+            if( $request->input('remember') === 'on' ) {
+                $remember = true;
+            } else {
+                $remember = false;
+            }
+
 
         Authenticator::attempt(
             $request->input('email'),
-            $request->input('password')
+            $request->input('password'),
+            $remember,
         );
 
-        Response::redirect('/');
+        $redirect = $_SESSION['next']  ?? '/';
+        Response::redirect($redirect);
+        unset($_SESSION['next']);
     }
 
     public function register(Request $request): void
     {
-        $request->validate([
+        $validateData = $request->validated([
             'username' => 'required|string|min:2|max:16|unique:users,username',
             'first_name' => 'required|string|min:2|max:100',
             'last_name' => 'required|string|min:2|max:100',
@@ -78,7 +92,7 @@ class HomeController extends Controller
             'other_name' => 'string|min:2|max:255',
         ]);
 
-        $user = Authenticator::register((array)$request->all());
+        $user = Authenticator::register($validateData);
 
         if ($user) {
             redirect('/');
@@ -93,9 +107,7 @@ class HomeController extends Controller
 
     public function aboutUs(Request $request): void
     {
-        Response::view('about-us', [
-
-        ]);
+        Response::view('about-us', []);
     }
 
     /**
@@ -189,7 +201,8 @@ HTML;
     {
         $token = $request->params()->token;
 
-        $query = "SELECT user_id, created_at FROM password_resets WHERE token = ? AND created_at > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+        $query = "SELECT user_id, created_at FROM password_resets
+            WHERE token = ? AND created_at > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
         $result = Model::raw($query, [$token]);
         $password = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
@@ -224,5 +237,10 @@ HTML;
     public function dashboard(Request $request): void
     {
         Response::view('dashboard/index');
+    }
+
+    public function contact(): void
+    {
+        Response::view('contact', []);
     }
 }

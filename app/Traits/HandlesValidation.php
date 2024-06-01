@@ -19,14 +19,13 @@ trait HandlesValidation
      * @param array $rules
      * @throws ValidationException
      */
-    public function validate(array $rules)
+    public function validate(array $rules): void
     {
-        // dd((array)$this->all());
         $this->old = (array)$this->all();
 
         $validator = new Validator();
-
         $validator->validate(data: (array)$this->all(), rules: $rules);
+
         $this->errors = $validator->errors();
 
         if (!$this->failed()) {
@@ -69,5 +68,18 @@ trait HandlesValidation
             return null;
         }
         return in_array(strtolower($extension), $allowedExtensions) && $file['size'] <= $maxFileSize;
+    }
+
+    /**
+     * Validate and return the sanitized data
+     * @param array $rules
+     * @return array
+     * @throws Exception
+     */
+    public function validated(array $rules): array
+    {
+        $this->validate($rules);
+
+        return array_intersect_key((array) $this->all(), $rules);
     }
 }

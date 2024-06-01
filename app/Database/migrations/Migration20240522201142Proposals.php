@@ -11,6 +11,7 @@ class Migration20240522201142Proposals
       approach TEXT NOT NULL,
       timeline VARCHAR(255),
       fees DECIMAL(10, 2),
+      status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
       submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
       FOREIGN KEY (project_id) REFERENCES projects(id),

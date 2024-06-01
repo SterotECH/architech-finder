@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Core\Request;
 use App\Core\Validator;
+use App\Core\Exceptions\NotAuthorizeException;
 
 abstract class FormRequest extends Request
 {
@@ -15,9 +16,11 @@ abstract class FormRequest extends Request
 
     public function validate(array $data): void
     {
-        $validator = new Validator();
-        $validator->validate($this->all(), $this->rules());
-        $this->errors = $validator->errors();
+        if (authorize(fn () => $this->authorize())) {
+            $validator = new Validator();
+            $validator->validate((array)$this->all(), $this->rules());
+            $this->errors = $validator->errors();
+        }
     }
 
     public function failed(): bool

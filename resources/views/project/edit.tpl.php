@@ -49,3 +49,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  const textarea = document.getElementById('description');
+
+  function resizeTextarea() {
+    const halfViewportHeight = window.innerHeight / 2;
+    textarea.style.height = `${halfViewportHeight}px`;
+  }
+
+  // Initial resize and add event listener for window resize
+  resizeTextarea();
+  window.addEventListener('resize', resizeTextarea);
+</script>

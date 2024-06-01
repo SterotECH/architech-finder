@@ -23,7 +23,7 @@ class ApplyViewsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->Note('Running Views');
+        $io->note('Running Views');
 
         $viewFile = base_path('/app/Database/views/views.php');
         $views = include $viewFile;
@@ -38,13 +38,11 @@ class ApplyViewsCommand extends Command
                 applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )");
 
-
-
         foreach ($views as $className => $status) {
             if ($status === 'unapplied') {
                 include $viewDir . '/' . $className . '.php';
-                $views = new $className();
-                $database->query($views->up());
+                $viewInstance = new $className();
+                $database->query($viewInstance->up());
                 $database->query("INSERT INTO views (view_name) VALUES ('$className')");
                 $views[$className] = 'applied';
                 file_put_contents($viewFile, '<?php return ' . var_export($views, true) . ';');

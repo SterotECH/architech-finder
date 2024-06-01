@@ -16,7 +16,8 @@ class Router
     private const DELETE_METHOD = 'DELETE';
     public ?string $method = 'GET';
     private array $args = [];
-    public ?string $path, $uri = '/';
+    public ?string $path = '/';
+    public ?string $uri = '/';
 
     private array $validMethods = [
         'GET', 'POST', 'PUT', 'PATCH', 'DELETE'
@@ -37,7 +38,7 @@ class Router
     {
         $this->serverMode = php_sapi_name();
         $this->uri = $this->serverMode === 'cli-server' ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : null;
-        $this->host = env('HOSTNAME','localhost');
+        $this->host = env('HOSTNAME', 'localhost');
         self::$handlers = $this->routes;
     }
 
@@ -248,15 +249,16 @@ class Router
         $method = $_POST['_request_method'] ?? $_SERVER['REQUEST_METHOD'];
         self::$handlers = $this->routes;
 
-    foreach ($this->routes as $index => $route) {
-            if ($this->handleDynamicRouteParamsAndPath($route['path'], $this->uri) &&
+        foreach ($this->routes as $index => $route) {
+            if (
+                $this->handleDynamicRouteParamsAndPath($route['path'], $this->uri) &&
                 $route['method'] === $method &&
                 $route['valid']
             ) {
                 if ($this->checkDomain($route['domain'])) {
                     $this->handleRoute($route['callback'], $route['middlewares']);
                     return;
-                }else{
+                } else {
                     abort(Response::HTTP_PRECONDITION_REQUIRED);
                 }
             }
@@ -274,7 +276,8 @@ class Router
      */
     private function handleRoute(array|callable $callback, array $middlewares): void
     {
-        $request = new Request($this->args);
+        $requestClass = $this->determineRequestClass($callback);
+        $request = new $requestClass($this->args);
 
         $next = function ($request) use ($callback) {
             $this->handleCallback($callback, $request);
@@ -295,6 +298,22 @@ class Router
         }
 
         $next($request);
+    }
+
+    private function determineRequestClass($callback): string
+    {
+        $controllerMethod = $callback[1];
+        $controllerClass = new \ReflectionClass($callback[0]);
+        $method = $controllerClass->getMethod($controllerMethod);
+        $parameters = $method->getParameters();
+
+        foreach ($parameters as $parameter) {
+            if ($parameter->hasType() && is_subclass_of($parameter->getType()->getName(), Request::class)) {
+                return $parameter->getType()->getName();
+            }
+        }
+
+        return Request::class;
     }
 
 

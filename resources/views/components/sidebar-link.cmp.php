@@ -1,7 +1,7 @@
 <nav class="p-6 w-full flex flex-col flex-wrap" aria-label="aside navigation">
   <ul class="space-y-1.5">
     <li>
-      <a class="<?= route('/dashboard') ? 'bg-primary-200 text-primary-900' : 'hover:bg-primary-200' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/dashboard">
+      <a class="<?= route('/dashboard') ? 'bg-primary text-white' : 'hover:bg-primary hover:text-slate-50' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/dashboard">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard">
           <rect width="7" height="9" x="3" y="3" rx="1" />
           <rect width="7" height="5" x="14" y="3" rx="1" />
@@ -13,7 +13,7 @@
     </li>
 
     <li>
-      <a class="<?= uriContains('/projects') ? 'bg-primary-200 text-primary-900' : 'hover:bg-primary-200' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/projects">
+      <a class="<?= uriContains('/projects') ? 'bg-primary text-white' : 'hover:bg-primary hover:text-slate-50' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/projects">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hotel">
           <path d="M10 22v-6.57" />
           <path d="M12 11h.01" />
@@ -30,7 +30,7 @@
       </a>
 
     <li>
-      <a class="<?= uriContains('/messages') ? 'bg-primary-200 text-primary-900' : 'hover:bg-primary-200' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/messages">
+      <a class="<?= uriContains('/messages') ? 'bg-primary text-white' : 'hover:bg-primary hover:text-slate-50' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/messages">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle-more">
           <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
           <path d="M8 12h.01" />
@@ -42,7 +42,7 @@
     </li>
 
     <li>
-      <a class="<?= uriContains('/reviews') ? 'bg-primary-200 text-primary-900' : 'hover:bg-primary-200' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/reviews">
+      <a class="<?= uriContains('/reviews') ? 'bg-primary text-white' : 'hover:bg-primary hover:text-slate-50' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/reviews">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
@@ -50,7 +50,7 @@
       </a>
     </li>
     <li>
-      <a class="<?= uriContains('/architect') ?> ? 'bg-primary-200 text-primary-900' : 'hover:bg-primary-200' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/architect">
+      <a class="<?= uriContains('/architect') ?> ? 'bg-primary text-white' : 'hover:bg-primary hover:text-slate-50' ?> flex items-center gap-x-3.5 py-2 px-2.5  text-sm  text-neutral-700 rounded-lg " href="/architect">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round">
           <path d="M18 21a8 8 0 0 0-16 0" />
           <circle cx="10" cy="8" r="5" />

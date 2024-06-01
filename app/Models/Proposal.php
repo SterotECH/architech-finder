@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProposalStatus;
 use DateTime;
 
 class Proposal extends Model
@@ -21,14 +22,28 @@ class Proposal extends Model
 
     public static function proposalWithArchitectsDetails(string|int $id): array
     {
-        // $sql = "SELECT
-        //     p.*,
-        //     av.first_name,
-        //     av.last_name
-        //     FROM proposals p
-        //     JOIN architects_view av ON p.architect_id = av.architect_id
-        //     WHERE p.project_id = :id";
+        $sql = "SELECT
+                p.*,
+                av.first_name,
+                av.last_name,
+                av.avatar
+            FROM proposals p
+            JOIN architects_view av ON p.architect_id = av.architect_id
+            WHERE p.project_id = :id";
 
-        return self::$database->query("SELECT  * FROM proposals WHERE project_id = :id", ['id' => $id])->findAll();
+        return self::raw($sql, ['id' => $id]);
+    }
+
+    public static function rejectOtherProposals($project_id, $accepted_proposal_id): bool
+    {
+        $proposals = self::where('project_id', $project_id)->get(['id', 'status']);
+        foreach ($proposals as $proposal) {
+            if ($proposal->id != $accepted_proposal_id) {
+                $proposal = new self();
+                $proposal->status = ProposalStatus::REJECTED->value;
+                $proposal->save();
+            }
+        }
+        return true;
     }
 }

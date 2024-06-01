@@ -4,7 +4,6 @@ use App\Core\Session;
 
 resource('layouts/master')
 ?>
-
 <header class="top-0 left-0 right-0 z-50 fixed bg-white/10 backdrop-blur-lg">
     <nav class="hidden lg:flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request\UserStoreRequet;
+use App\Http\Request\UserStoreRequest;
 use App\Models\User;
 use App\Core\Request;
 use App\Core\Session;
@@ -29,12 +29,18 @@ class UserController extends Controller
 
     public static function store(Request $request): object
     {
-        $storeRequest = new UserStoreRequet();
+        $storeRequest = new UserStoreRequest();
 
-        $request->validate($storeRequest->rules());
+        $data = $request->validated($storeRequest->rules());
 
-        $user = Authenticator::register((array)$request->all());
-        Session::flash('success',"{$user->username} account has being created successfully");
+        if ($request->hasFile('avatar')){
+            $profilePicture = $request->uploadFile('avatar','/images/users');
+            $data['avatar'] = $profilePicture;
+        }
+
+        $user = Authenticator::register($data);
+
+        Session::flash('success',"{$user->email} account has being created successfully");
 
         return $user;
     }

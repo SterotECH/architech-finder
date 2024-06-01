@@ -1,9 +1,9 @@
 <div class="team-card-animate-in">
   <div class="group select-none cursor-pointer transition ease-in-out delay-50 duration-300 relative" firstName="<?= $architect->first_name ?>" lastName="<?= $architect->first_name ?>" x-data="{ front: true }" title="<?= $architect->first_name . ' ' . $architect->last_name; ?> | <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience" x-cloak>
-    <div class="aspect-w-7 aspect-h-8">
+    <div class="h-[457px] w-[257px]">
       <div @click="front = ! front">
         <div class="relative w-full h-full">
-          <img class="object-cover w-full h-full transition delay-50 duration-300 grayscale group-hover:grayscale-0 bg-black" src="<?= $architect->avatar ?>" alt="<?= $architect->first_name . ' ' . $architect->last_name; ?>" title="<?= $architect->first_name . ' ' . $architect->last_name; ?> | <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience">
+          <img class="object-cover h-[457px] w-[357px] transition delay-50 duration-300 grayscale group-hover:grayscale-0 bg-black" src="<?= $architect->avatar ?>" alt="<?= $architect->first_name . ' ' . $architect->last_name; ?>" title="<?= $architect->first_name . ' ' . $architect->last_name; ?> | <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience">
 
           <div class="absolute z-10 cursor-pointer top-4 right-4 text-yellow-500">
             <svg class="flex-shrink-0 w-8 h-8" id="icon-tighten-mark-filled" viewBox="0 0 104.8774 106.3796">
@@ -13,7 +13,7 @@
 
           <div class="absolute z-10 bottom-4 left-7 right-7">
             <h3 class="pb-2 font-serif text-3xl text-white font-extralight text-shadow leading-tight-2 2xl:text-4xl 2xl:leading-tight-2" title="<?= $architect->first_name . ' ' . $architect->last_name; ?> | <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience">
-              <?= $architect->firexperiencest_name ?><br><?= $architect->last_name ?>
+              <?= $architect->first_name ?><br><?= $architect->last_name ?>
             </h3>
             <p class="font-mono text-sm font-bold tracking-widest uppercase word-spacing-tight text-yellow" title="<?= $architect->first_name . ' ' . $architect->last_name; ?> | <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience">
               <?= $architect->qualifications; ?> | <?= $architect->experience; ?> Years Experience
@@ -35,19 +35,6 @@
           </div>
 
           <div class="flex flex-col pt-4 space-y-3">
-            <a onclick="event.stopPropagation()" class="group" href="/">
-              <div class="flex border  border-yellow-800 transition-colors hover:bg-yellow-400">
-                <div class="flex flex-col justify-center py-2 pl-3 pr-2 overflow-hidden md:py-3">
-                  <div class="pb-1 font-mono text-lg font-semibold leading-none tracking-tight text-black truncate word-spacing-tight">
-                    Accra
-                  </div>
-
-                  <div class="font-mono text-xs font-bold leading-none tracking-widest text-yellow-800 uppercase word-spacing-tight">
-                    Ghana
-                  </div>
-                </div>
-              </div>
-            </a>
             <a onclick="event.stopPropagation()" class="group" href="/architect/1">
               <div class="flex border border-yellow-800 transition-colors hover:bg-yellow-400">
 

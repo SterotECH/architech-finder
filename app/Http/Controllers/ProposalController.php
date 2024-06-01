@@ -7,13 +7,12 @@ use App\Core\Request;
 use App\Core\Session;
 use App\Core\Response;
 use App\Enums\ProjectStatus;
+use App\Enums\ProposalStatus;
 use App\Enums\UserRole;
 use App\Http\Request\ProposalStoreRequest;
 use App\Models\Architect;
-use App\Models\Client;
 use App\Models\Project;
 use App\Models\Proposal;
-use stdClass;
 
 class ProposalController extends Controller
 {
@@ -26,7 +25,7 @@ class ProposalController extends Controller
 
     public function create(Request $request): void
     {
-        if (auth()->user()->role === UserRole::ARCHITECT) {
+        if (auth()->user()->role === UserRole::ARCHITECT->value) {
             $slug = $request->params()->slug;
             $project = Project::findBySlug($slug);
             $architect = Architect::find('user_id', auth()->user()->id, ['id']);
@@ -34,7 +33,7 @@ class ProposalController extends Controller
             Response::view('proposal/create', [
                 'slug' => $slug,
                 'project' => $project,
-                'architect' => $architect[0]->id,
+                'architect' => $architect->id,
                 'errors' => Session::get('errors')
             ]);
         } else {
@@ -42,31 +41,34 @@ class ProposalController extends Controller
         }
     }
 
-    public function store(Request $request): void
+    public function store(ProposalStoreRequest $request): void
     {
-        if (auth()->user()->role === UserRole::ARCHITECT) {
-            $validatedData = $request->validated([]);
-
-            $proposal = new Proposal();
-            $proposal->project_id = $validatedData['project_id'];
-            $proposal->architect_id = $validatedData['architect_id'];
-            $proposal->approach = $validatedData['approach'];
-            $proposal->timeline = $validatedData['timeline'] ?? null;
-            $proposal->fees = $validatedData['fees'] ?? null;
-
-            $proposal->save();
-
-            Response::redirect("/projects/{$request->params()->slug}/proposals");
-        } else {
+        if (auth()->user()->role !== UserRole::ARCHITECT->value) {
             abort(Response::HTTP_FORBIDDEN);
         }
+        $data = $request->validated($request->rules());
+
+        $proposal = new Proposal();
+
+        $proposal->architect_id = $data['architect_id'];
+        $proposal->project_id = $data['project_id'];
+        $proposal->approach = $data['approach'];
+        $proposal->timeline = $data['timeline'];
+        $proposal->fees = $data['fees'];
+
+        $proposal->save();
+
+        Response::redirect("/projects/{$request->params()->slug}/proposals");
     }
 
     public function show(Request $request): void
     {
         $id = $request->params()->id;
 
+
+
         $proposal = Proposal::findById($id);
+
         Response::view('proposal/show', [
             'proposal' => $proposal
         ]);
@@ -104,21 +106,38 @@ class ProposalController extends Controller
 
     public function accept(Request $request)
     {
-        $proposal = Proposal::findById($request->input('proposal_id'));
-        $project = Project::findById($request->input('project_id'));
+        $proposalId = $request->input('proposal_id');
+        $projectId = $request->input('project_id');
 
-        if ($project && $proposal && $project->status === ProjectStatus::PENDING) {
+        $proposal = Proposal::findById($proposalId);
+        $project = Project::findById($projectId);
+        $architectId = $proposal->architect_id;
+
+        if ($project && $proposal && $project->status === ProjectStatus::PENDING->value) {
             $proposal = new Proposal();
 
-            $proposal->status = 'accepted';
+            $proposal->id = $proposalId;
+            $proposal->status = ProposalStatus::APPROVED->value;
+
             $proposal->save();
 
-            $project = new Project();
+            $proposals = Proposal::where('project_id', $projectId)->get(['id', 'status']);
+            foreach ($proposals as $proposal) {
+                if ($proposal->id != $proposalId && $proposal->status === ProposalStatus::PENDING->value) {
+                    $object = new Proposal();
+                    $object->id = $proposal->id;
+                    $object->status = ProposalStatus::REJECTED->value;
+                    $object->save();
+                }
+            }
 
-            $project->architect_id = $proposal->architect_id;
-            $project->status = ProjectStatus::IN_PROGRESS;
+            $newProject = new Project();
 
-            $project->save();
+            $newProject->id = $projectId;
+            $newProject->architect_id = $architectId;
+            $newProject->status = ProjectStatus::IN_PROGRESS->value;
+
+            $newProject->save();
 
             Session::flash('success', 'Proposal accepted and architect assigned.');
 
