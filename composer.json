@@ -1,44 +1,58 @@
 {
-    "name": "stero/php-mvc",
-    "description": "PHP MVP template",
+    "name": "laravel/laravel",
     "type": "project",
-    "keywords": ["MVC", "Stero MVC"],
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
     "require": {
         "php": "^8.2",
-        "ext-pdo": "*",
-        "phpmailer/phpmailer": "^6.9",
-        "symfony/console": "^7.0",
-        "vlucas/phpdotenv": "^5.6"
+        "laravel/framework": "^11.9",
+        "laravel/tinker": "^2.9"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.10",
-        "friendsofphp/php-cs-fixer": "^3.50",
-        "pestphp/pest": "^2.34"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Stero tECH",
-            "email": "agyeisterogh@gmail.com"
-        }
-    ],
-    "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php stero key:generate ",
-            "@php -r \"file_exists('app/Database/database.sqlite') || touch('app/Database/database.sqlite');\"",
-            "@php stero migrate "
-        ]
+        "fakerphp/faker": "^1.23",
+        "laravel/breeze": "^2.0",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.26",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
-    "minimuim-stability": "stable",
-    "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -47,5 +61,7 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

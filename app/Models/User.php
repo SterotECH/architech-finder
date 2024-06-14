@@ -2,40 +2,46 @@
 
 namespace App\Models;
 
-use AllowDynamicProperties;
-use App\Enums\UserRole;
-use DateTime;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-#[AllowDynamicProperties] class User extends Model
+class User extends Authenticatable
 {
-    protected static ?string $table = 'users';
+    use HasFactory, Notifiable;
 
-    protected static array $fields = [
-        'id',
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
         'email',
-        'first_name',
-        'last_name',
-        'phone_number',
-        'avatar',
-        'role',
-        'created_at',
+        'password',
     ];
 
-    public int $id;
-    public string $email;
-    public string $first_name;
-    public string $last_name;
-    public string $phone_number;
-    public string $password;
-    public string|UserRole $role;
-    public DateTime $updated_at;
-    public DateTime $created_at;
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    const CLIENT_ROLE = 'Client';
-    public const ARCHITECT_ROLE = 'Architect';
-
-    public function getUserData(string|int $user_id): object
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->findById($user_id);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

@@ -1,44 +1,17 @@
 <?php
 
-declare(strict_types=1);
+use Illuminate\Http\Request;
 
-$minPhpVersion = '7.4';
-if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
-    $message = sprintf(
-        'Your PHP version must be %s or higher to run Stero MVC. Current version: %s',
-        $minPhpVersion,
-        PHP_VERSION
-    );
+define('LARAVEL_START', microtime(true));
 
-    exit($message);
+// Determine if the application is in maintenance mode...
+if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    require $maintenance;
 }
 
-use App\Core\Authenticator;
-use Dotenv\Dotenv;
-use App\Core\Router;
-use App\Models\User;
-use App\Core\Session;
-use App\Core\Response;
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
 
-const BASE_PATH = __DIR__ . '/../';
-require_once BASE_PATH . 'vendor/autoload.php';
-require_once BASE_PATH . 'app/Core/utils.php';
-
-$dotenv = Dotenv::createImmutable(BASE_PATH);
-$dotenv->load();
-
-session_start();
-
-Authenticator::checkRememberMe();
-
-require base_path('routes/web.php');
-
-try {
-    Router::executeRoutes();
-} catch (PDOException $exception) {
-    abort(Response::HTTP_INTERNAL_SERVER_ERROR, description: $exception, view: 'status/sql');
-} catch (Exception $e) {
-    abort(Response::HTTP_BAD_GATEWAY, $e->getMessage());
-}
-
-Session::unflash();
+// Bootstrap Laravel and handle the request...
+(require_once __DIR__.'/../bootstrap/app.php')
+    ->handleRequest(Request::capture());

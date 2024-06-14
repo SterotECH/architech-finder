@@ -1,13 +1,8 @@
 <?php
-declare(strict_types=1);
 
-const BASE_PATH = __DIR__ . '/../';
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-require 'vendor/autoload.php';
-require 'app/Core/utils.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
-$dotenv->load();
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -19,7 +14,7 @@ $dotenv->load();
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+uses(TestCase::class, RefreshDatabase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
