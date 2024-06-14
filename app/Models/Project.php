@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\ProjectStatus;
-use App\Enums\ProjectType;
 use DateTime;
 use Dotenv\Util\Str;
+use App\Enums\UserRole;
+use App\Enums\ProjectType;
+use App\Enums\ProjectStatus;
 
 class Project extends Model
 {
@@ -98,5 +99,41 @@ class Project extends Model
             p.client_id = cv.id
         WHERE architect_id IS NULL OR architect_id = ?";
         return self::raw($query, [$architectId->id]);
+    }
+
+    public static function getAssignedProjects(): array
+    {
+        $architectId = Architect::find('user_id', auth()->user()->id, ['id']);
+        $query = "SELECT
+            p.title,
+            p.slug,
+            p.id,
+            cv.first_name,
+            cv.last_name,
+            cv.avatar
+        FROM
+            projects p
+        JOIN
+            clients_view cv
+        ON
+            p.client_id = cv.id
+        WHERE p.architect_id = ?";
+        return self::raw($query, [$architectId->id]);
+    }
+
+    public static function getProjects(): array
+    {
+        $project = new self();
+        $projects = [];
+        $userType = auth()->user()->role;
+
+        if ($userType === UserRole::CLIENT->value) {
+            $projects = $project->getClientProjects(auth()->user()->id);
+        } elseif ($userType === UserRole::ARCHITECT->value) {
+            $projects = $project->getUnassignedProjects();
+        } else {
+            $projects = Project::all();
+        }
+        return $projects;
     }
 }

@@ -20,20 +20,10 @@ class ProjectController extends Controller
 {
     public function index(): void
     {
-        $project = new Project();
-        $projects = [];
-        $userType = auth()->user()->role;
 
-        if ($userType === UserRole::CLIENT->value) {
-            $projects = $project->getClientProjects(auth()->user()->id);
-        } elseif ($userType === UserRole::ARCHITECT->value) {
-            $projects = $project->getUnassignedProjects();
-        } else {
-            $projects = Project::all();
-        }
 
         Response::view('project/index', [
-            'projects' => $projects
+            'projects' => Project::getProjects()
         ]);
     }
 

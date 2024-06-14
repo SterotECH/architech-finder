@@ -132,7 +132,11 @@ function uriContains(string $value): bool
  * @param string|null $description
  * @return void
  */
-function abort(int $statusCode = Response::HTTP_NOT_FOUND, string|null|PDOException $description = null, string $view = 'status/code'): void
+function abort(
+    int $statusCode = Response::HTTP_NOT_FOUND,
+    string|null|PDOException $description = null,
+    string $view = 'status/code'
+): void
 {
     http_response_code($statusCode);
 
