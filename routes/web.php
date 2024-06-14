@@ -1,12 +1,17 @@
 <?php
 
+use App\Core\Request;
 use App\Core\Router;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
+use App\Core\SSE;
+use App\Models\Message;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GustMiddleware;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SSEController;
 
-Router::get('/', [HomeController::class , 'index']);
+Router::get('/', [HomeController::class, 'index']);
 Router::get('/auth/login', [HomeController::class, 'render_login'])->middleware([GustMiddleware::class]);
 Router::get('/dashboard', [HomeController::class, 'dashboard'])
   ->middleware([AuthMiddleware::class]);
@@ -20,11 +25,19 @@ Router::get('/auth/reset-password/{token}', [HomeController::class, 'renderReset
 Router::post('/auth/reset-password/{token}', [HomeController::class, 'resetPassword'])->middleware([GustMiddleware::class]);
 Router::get('/about-us', [HomeController::class, 'aboutUs']);
 Router::get('/contact', [HomeController::class, 'contact']);
-Router::resource('/users',UserController::class);
+Router::resource('/users', UserController::class);
 Router::resource('/client', App\Http\Controllers\ClientController::class);
 Router::resource('/architect', App\Http\Controllers\ArchitectController::class);
 Router::resource('/projects', App\Http\Controllers\ProjectController::class, [AuthMiddleware::class]);
-Router::group(['prefix'=>'/projects/{slug}'], function (){
+Router::group(['prefix' => '/projects/{slug}'], function () {
   Router::resource('/proposals', App\Http\Controllers\ProposalController::class, [AuthMiddleware::class]);
 });
-Router::post('/proposal/accept', [App\Http\Controllers\ProposalController::class, 'accept'])->middleware([AuthMiddleware::class]);
+Router::post('/proposal/accept', [App\Http\Controllers\ProposalController::class, 'accept'])
+  ->middleware([AuthMiddleware::class]);
+
+Router::get('/messages', [MessageController::class, 'index'])->middleware([AuthMiddleware::class]);
+Router::get('/messages/{slug}', [MessageController::class, 'edit'])->middleware([AuthMiddleware::class]);
+Router::get('/sse/stream', [SSEController::class, 'stream'])->middleware([AuthMiddleware::class]);
+Router::post('/sse/send-message', [SSEController::class, 'sendMessage'])->middleware([AuthMiddleware::class]);
+Router::post('/sse/upload-file', [SSEController::class, 'uploadFile'])->middleware([AuthMiddleware::class]);
+Router::get('/api/projects/{projectId}/messages', [SSEController::class, 'getMessages'])->middleware([AuthMiddleware::class]);

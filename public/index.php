@@ -13,12 +13,12 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
     exit($message);
 }
 
-use App\Core\Authenticator;
 use Dotenv\Dotenv;
 use App\Core\Router;
 use App\Models\User;
 use App\Core\Session;
 use App\Core\Response;
+use App\Core\Authenticator;
 
 const BASE_PATH = __DIR__ . '/../';
 require_once BASE_PATH . 'vendor/autoload.php';
