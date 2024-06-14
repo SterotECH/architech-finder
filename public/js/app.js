@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import './bootstrap';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-=======
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
 // if (window.EventSource) {
 //   const source = new EventSource('');
 
@@ -48,4 +44,5 @@ Alpine.start();
 // } else {
 //   console.error("Your browser doesn't support SSE.");
 // }
->>>>>>> origin/main
+/******/ })()
+;
