@@ -54,9 +54,19 @@
 
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
-            <x-input-error for="name" class="mt-2" />
+            <x-label for="first_name" value="{{ __('First Name') }}" />
+            <x-input id="first_name" type="text" class="mt-1 block w-full" wire:model="state.first_name" required />
+            <x-input-error for="first_name" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="last_name" value="{{ __('Last Name') }}" />
+            <x-input id="last_name" type="text" class="mt-1 block w-full" wire:model="state.last_name" required />
+            <x-input-error for="last_name" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="other_name" value="{{ __('Other Name') }}" />
+            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.other_name" />
+            <x-input-error for="other_name" class="mt-2" />
         </div>
 
         <!-- Email -->
@@ -69,7 +79,7 @@
                 <p class="text-sm mt-2 dark:text-white">
                     {{ __('Your email address is unverified.') }}
 
-                    <button type="button" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" wire:click.prevent="sendEmailVerification">
+                    <button type="button" class="underline text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-800" wire:click.prevent="sendEmailVerification">
                         {{ __('Click here to re-send the verification email.') }}
                     </button>
                 </p>

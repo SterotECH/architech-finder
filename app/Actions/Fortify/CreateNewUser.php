@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Client;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,11 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
+            'other_name' => ['nullable', 'string', 'max:100'],
+            'phone' => ['required', 'string', 'unique:users'],
+            'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
@@ -30,11 +35,19 @@ class CreateNewUser implements CreatesNewUsers
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
-                'name' => $input['name'],
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'other_name' => $input['other_name'],
+                'phone' => $input['phone'],
+                'address' => $input['address'],
+                'role' => $input['role'] ?? 'client',
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 $this->createTeam($user);
+                if ($user->role === 'client') {
+                    $this->createClient($user);
+                }
             });
         });
     }
@@ -46,8 +59,20 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => $user->first_name . "'s Team",
             'personal_team' => true,
         ]));
+    }
+
+    /**
+     * Create a Client Account for a user
+     */
+    protected function createClient(User $user)
+    {
+        $user->client()->save(
+            Client::forceCreate([
+                'user_id' => $user->id,
+            ])
+        );
     }
 }

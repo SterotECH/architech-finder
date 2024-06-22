@@ -1,0 +1,3 @@
+<div>
+    {{ $this->proposalInfolist }}
+</div>
